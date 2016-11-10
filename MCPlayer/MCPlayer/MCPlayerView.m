@@ -210,7 +210,7 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     NSInteger durSec = ((NSInteger)[self getCurrentTime]) % 60;//总秒
     self.myPlayerSliderView.lblCurrentTime.text = [NSString stringWithFormat:@"%02zd:%02zd",durMin,durSec];
     self.myPlayerSliderView.lblTotalTime.text = [NSString stringWithFormat:@"%02zd:%02zd",proMin,proSec];
-    NSLog(@"lblTotalTime = %@",self.myPlayerSliderView.lblTotalTime.text);
+    
     CGFloat progress = [self availableDuration] / [self getTotolTime];
     self.myPlayerSliderView.prgCache.progress = isnan(progress) ? 0 : progress;
     if(self.isDrag == NO) self.myPlayerSliderView.sldProgress.value = [self getCurrentTime] / [self getTotolTime];

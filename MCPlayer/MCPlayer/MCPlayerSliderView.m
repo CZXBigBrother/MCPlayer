@@ -122,43 +122,12 @@
     }];
     [self.prgCache mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.btnPlay.mas_centerY);
-//        make.centerX.equalTo(weakSelf.sldProgress.mas_centerX);
-//        make.width.equalTo(weakSelf.sldProgress).offset(-3);
         make.left.equalTo(weakSelf.lblCurrentTime.mas_right).offset(MarginView);
         make.right.equalTo(weakSelf.lblTotalTime.mas_left).offset(-MarginView);
-//        make.height.mas_equalTo(1.5);
     }];
-    
-//    self.btnFull.backgroundColor = [UIColor blackColor];
-//    self.btnPlay.backgroundColor = [UIColor blackColor];
-//    self.lblCurrentTime.backgroundColor = [UIColor blueColor];
-//    self.lblTotalTime.backgroundColor = [UIColor blueColor];
-    
-//    self.imgBackground.backgroundColor = [UIColor redColor];
-//    self.prgCache.progressTintColor = [UIColor redColor];
-//    self.prgCache.progress = 0.5;
+
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-//    self.btnPlay.frame = (CGRect){{MarginView ,0},{24,24}};
-//    self.btnFull.frame = (CGRect){{WIDTH_VIEW - MarginView - 24,0},{24,24}};
-//    self.btnPlay.center = CGPointMake(self.btnPlay.center.x, HEIGHT_VIEW * 0.5);
-//    self.btnFull.center = CGPointMake(self.btnFull.center.x, HEIGHT_VIEW * 0.5);
-//    
-//    self.lblCurrentTime.frame = (CGRect){{CGRectGetMaxX(self.btnPlay.frame) + MarginView , 0},{40,HEIGHT_VIEW}};
-//    self.lblTotalTime.frame = (CGRect){{CGRectGetMinX(self.btnFull.frame) - MarginView - 40, 0},{40,HEIGHT_VIEW}};
-//
-//    self.sldProgress.frame = (CGRect){{CGRectGetMaxX(self.lblCurrentTime.frame) + MarginView , 0},{CGRectGetMinX(self.lblTotalTime.frame) - MarginView * 2 - CGRectGetMaxX(self.lblCurrentTime.frame),HEIGHT_VIEW}};
-//    self.sldProgress.center = CGPointMake(self.sldProgress.center.x, HEIGHT_VIEW * 0.5);
-//
-//    self.prgCache.frame = (CGRect){CGPointZero,{self.sldProgress.frame.size.width - MarginView * 2,HEIGHT_VIEW}};
-//    self.prgCache.center = CGPointMake(self.sldProgress.center.x + MarginView - 3, self.sldProgress.center.y);
-//
-//    self.imgBackground.frame = self.bounds;
-    
-}
 
 
 @end

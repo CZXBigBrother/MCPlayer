@@ -8,6 +8,7 @@
 
 #import "MCPlayerTopView.h"
 #import "MCPlayer.h"
+#import <Masonry.h>
 
 @interface MCPlayerTopView()
 
@@ -45,16 +46,25 @@
     self.lblTitle.textColor = [UIColor whiteColor];
     self.lblTitle.textAlignment = NSTextAlignmentCenter;
     self.lblTitle.font = [UIFont systemFontOfSize:15];
+    
+    [self createViewMakeConstraints];
 }
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.imgBackground.frame = self.bounds;
-    
-    self.btnClose.frame = (CGRect){{15 ,0},{24,24}};
-    self.btnClose.center = CGPointMake(self.btnClose.center.x, HEIGHT_VIEW * 0.5);
-    
-    self.lblTitle.frame = (CGRect){CGPointZero,{150,HEIGHT_VIEW}};
-    self.lblTitle.center = CGPointMake(WIDTH_VIEW * 0.5, HEIGHT_VIEW * 0.5);
-    
+
+- (void)createViewMakeConstraints {
+    WEAK_SELF;
+    [self.imgBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    [self.btnClose mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.mas_left).offset(MarginView);
+        make.width.height.mas_equalTo(24);
+        make.centerY.equalTo(weakSelf.mas_centerY);
+    }];
+    [self.lblTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(150);
+        make.height.equalTo(weakSelf.mas_height);
+        make.center.equalTo(weakSelf);
+    }];
 }
+
 @end
