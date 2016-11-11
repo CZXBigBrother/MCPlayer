@@ -26,14 +26,14 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     MCPlayerStatePause       // 暂停播放
 };
 
-@interface MCPlayerView()<UIGestureRecognizerDelegate>
-// 播放属性
+@interface MCPlayerView()<UIGestureRecognizerDelegate,AVAudioPlayerDelegate>
+
 @property(strong, nonatomic)AVPlayer *player;
-// playerLayer
+@property(nonatomic, strong)AVPlayerItem *playerItem;
 @property(strong, nonatomic)AVPlayerLayer *playerLayer;
 
-@property(nonatomic, strong)UISlider               *volumeViewSlider;
-@property(nonatomic, assign)BOOL                   isVolume;
+@property(nonatomic, strong)UISlider *volumeViewSlider;
+@property(nonatomic, assign)BOOL isVolume;
 
 @property(nonatomic, weak)MCPlayerSliderView *myPlayerSliderView;
 @property(nonatomic, weak)MCPlayerTopView *myPlayerTopView;
@@ -41,7 +41,6 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 @property(nonatomic, weak)MCPlayerProgressHUD *myActiveHud;
 
 @property(nonatomic, copy)NSString *currentUrl;
-
 /** 初始位置*/
 @property(nonatomic, assign)CGRect initFrame;
 /** 用来保存快进的总时长 */
@@ -53,10 +52,11 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 @property(assign, nonatomic)BOOL isFullScreen;
 @property(nonatomic, assign)BOOL isHiddenComponent;
 @property(nonatomic, assign)BOOL isAllowStart;
+@property(nonatomic, assign)BOOL isFinish;
 
 @property(nonatomic, assign)PanDirection panDirection;
 
-@property(nonatomic, assign)MCPlayerState myStatus;
+@property(nonatomic, assign)MCPlayerState myState;
 
 
 @end
@@ -70,9 +70,12 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     }
     return self;
 }
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touchesBegan");
-//}
+- (void)dealloc {
+    NSLog(@"dealloc -- good");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [self cancelObserver];
+}
 #pragma mark - 创建参数
 - (void)createParam {
     self.allowFullScreen = YES;
@@ -92,26 +95,42 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     [self addGestureRecognizer:pan];
     
     [self configureVolume];
-
 }
 - (void)addObserver {
     // 监听播放器播放状态属性
-    [self.player.currentItem addObserver:self
+    [self.playerItem addObserver:self
                               forKeyPath:@"status"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
-    [self.player.currentItem addObserver:self
+    [self.playerItem addObserver:self
                               forKeyPath:@"loadedTimeRanges"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
-    [self.player.currentItem addObserver:self
+    [self.playerItem addObserver:self
                               forKeyPath:@"playbackBufferEmpty"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
-    [self.player.currentItem addObserver:self
+    [self.playerItem addObserver:self
                               forKeyPath:@"playbackLikelyToKeepUp"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
+    // 监听播放器播放状态属性
+    [self.player addObserver:self
+                  forKeyPath:@"rate"
+                     options:NSKeyValueObservingOptionNew
+                     context:nil];
+    // AVPlayer播放完成通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(msg_moviePlayDidEndNotification:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:self.player.currentItem];
+}
+- (void)cancelObserver {
+    [self.player removeObserver:self forKeyPath:@"rate"];
+    [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
+    [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
+    [self.playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty" context:nil];
+    [self.playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp" context:nil];
 }
 - (void)addTimer
 {
@@ -156,6 +175,10 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
         make.height.mas_equalTo(44);
     }];
 }
+- (void)setPlayModel:(MCPlayerModel *)playModel {
+    _playModel = playModel;
+    
+}
 - (CGFloat)getTotolTime {
     return CMTimeGetSeconds(self.player.currentItem.duration) >= 0 ? CMTimeGetSeconds(self.player.currentItem.duration): 0;
 }
@@ -196,12 +219,7 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
         self.frame = converRect;
         self.initFrame = self.frame;
     }
-    if (self.isFullScreen) {
-        self.playerLayer.frame = (CGRect){CGPointZero,[UIScreen mainScreen].bounds.size};
-    }else {
-        self.playerLayer.frame = self.bounds;
-    }
-
+    self.playerLayer.frame = self.bounds;
 }
 - (void)updateTime {
     NSInteger proMin = (NSInteger)[self getTotolTime] / 60;//当前分钟
@@ -219,12 +237,9 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 // 强制转换屏幕方向
 - (void)interfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    // 是否允许全屏
     if (self.allowFullScreen == NO && (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)) {
         return;
     }
-    
-    // arc下
     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
         SEL selector = NSSelectorFromString(@"setOrientation:");
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
@@ -237,32 +252,42 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 }
 
 #pragma mark - 操作
+/**
+ * 主要事件
+ */
 - (void)start {
     if (self.player == nil) {
-        AVPlayerItem * playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:@"http://baobab.wdjcdn.com/1456117847747a_x264.mp4"]];
-        self.player = [AVPlayer playerWithPlayerItem:playerItem];
+        self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.playModel.videoURL]];
+        self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
         self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-//        [self.layer insertSublayer:self.playerLayer atIndex:0];
+//        self.playerLayer.delegate = self;
         [self.layer insertSublayer:self.playerLayer below:self.myPlayerSliderView.layer];
         [self.layer insertSublayer:self.myPlayerTopView.layer below:self.myPlayerSliderView.layer];
+        [self addObserver];
     }
-    self.myPlayerSliderView.btnPlay.selected = YES;
+    if (self.isFinish) {
+        [self MCPlayerSeekToTime:0];
+        self.isFinish = NO;
+    }
+    [self startChangeState];
     [self.player play];
     [self addTimer];
-    [self addObserver];
     [self.myActiveHud stopStatus];
 }
 - (void)pause {
     [self.player pause];
+    [self pauseChangeState];
+}
+- (void)pauseChangeState {
     self.myPlayerSliderView.btnPlay.selected = NO;
 }
-- (void)clear {
-    [self.player pause];
-    self.player = nil;
-    [self.playerLayer removeFromSuperlayer];
-    [self stopTimer];
+- (void)startChangeState {
+    self.myPlayerSliderView.btnPlay.selected = YES;
 }
+/*
+ *  拖动事件
+ */
 - (void)startSliderProgress:(UISlider *)sender {
     [self moveChangeProgress:sender.value];
 }
@@ -272,9 +297,6 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 - (void)stopSliderProgress:(UISlider *)sender {
     [self stopChangeProgress:sender.value];
 }
-/*
- *  拖动事件
- */
 - (void)moveChangeProgress:(CGFloat)value {
     isAllowStartFunc
     self.isDrag = YES;
@@ -393,9 +415,16 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 }
 - (void)MCPlayerPause {
     [self pause];
+    [self stopTimer];
 }
-- (void)MCPlayerStop {
-    
+- (void)MCPlayerReset {
+    [self MCPlayerPause];
+    [self cancelObserver];
+    self.playerItem = nil;
+    [self.player replaceCurrentItemWithPlayerItem:nil];
+    self.player = nil;
+    [self.playerLayer removeFromSuperlayer];
+    [self start];
 }
 - (void)MCPlayerScreenFull {
     if (self.isFullScreen) {
@@ -419,7 +448,9 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     if (self.isFullScreen) {
         [self MCPlayerScreenFull];
     }else {
-        NSLog(@"做些奇奇怪怪的事情");
+        if ([self.delegate respondsToSelector:@selector(mc_playerBackButtonOnClick)]) {
+            [self.delegate mc_playerBackButtonOnClick];
+        }
     }
 }
 - (void)MCPlayerHidden {
@@ -492,6 +523,27 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
             break;
     }
 }
+// 播放完了
+- (void)msg_moviePlayDidEndNotification:(NSNotification *)notification
+{
+    self.myState = MCPlayerStateStopped;
+    NSLog(@"---------050505505------");
+    self.isFinish = YES;
+//    [self showActivity:NO];
+    // 播放完成
+//    _finishedPlaying = YES;
+    
+//    _isAllowDisappearMaskView = NO;
+//    [self animateShow];
+    
+    [self interfaceOrientation:UIInterfaceOrientationPortrait];
+    [self pauseChangeState];
+//    self.horizontalLabel.hidden = YES;
+    
+//    self.replayBtn.hidden = NO;
+    
+//    [self.startBtn setImage:[UIImage imageNamed:@"mv_player_play"] forState:UIControlStateNormal];
+}
 #pragma mark -   --kvo && observer
 
 // 播放对象的相关状态变化通知
@@ -502,8 +554,13 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 {
     if ([keyPath isEqualToString:@"rate"]) {
         NSLog(@"------播放状态变化了ratechange----->:%@",change);
-        NSString *value = [NSString stringWithFormat:@"%@",change[NSKeyValueChangeNewKey]];
-        
+        if ([change[NSKeyValueChangeNewKey] intValue] == 1) {
+            self.myState = MCPlayerStatePlaying;
+            [self startChangeState];
+        }else {
+            self.myState = MCPlayerStateStopped;
+            [self pauseChangeState];
+        }
         //在已经获取到视频信息后才允许刷新加载状态
 //        if (self.currentPlayTime < self.totalTime - 1 && self.totalTime > 0) {
 //            [self showActivity:value.integerValue == 0?YES:NO];
@@ -527,12 +584,17 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     } else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
     {
 //        NSLog(@"---------02020220-------:%@",change);
+        if (self.playerItem.playbackBufferEmpty) {
+            self.myState = MCPlayerStateBuffering;
+        }
         
     } else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
         
 //        NSLog(@"--------030303130--------:%@",change);
 //        [self.myActiveHud startStatus];
-        
+        if (self.playerItem.playbackLikelyToKeepUp && self.myState == MCPlayerStateBuffering){
+            self.myState = MCPlayerStatePlaying;
+        }
     } else if ([keyPath isEqualToString:@"status"]) {
         NSLog(@"---------040401440-------:%@",change);
         AVPlayerStatus status= [[change objectForKey:@"new"] intValue];
@@ -542,6 +604,7 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
                 break;
             case AVPlayerStatusReadyToPlay:
                 NSLog(@"AVPlayerStatusReadyToPlay");
+                self.myState = MCPlayerStatePlaying;
                 self.isAllowStart = YES;
                 [self.myActiveHud hideView];
                 if (self.myPlayerSliderView.btnPlay.selected == YES) {
@@ -551,12 +614,13 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
                 break;
             case AVPlayerStatusFailed:
                 NSLog(@"AVPlayerStatusFailed:%@",[self.player.currentItem error]);
+                self.myState = MCPlayerStateFailed;
                 break;
         }
     }
     
 }
-
+#pragma mark - 手指触摸事件
 /**
  *  获取系统音量
  */
@@ -616,4 +680,39 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     [self moveChangeProgress:self.sumTime / totalMovieDuration];
     self.myPlayerSliderView.sldProgress.value = self.sumTime/[self getTotolTime];
 }
+
+//- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+//    NSLog(@"audioPlayerDidFinishPlaying == flag %zd",flag);
+//}
+//
+///* if an error occurs while decoding it will be reported to the delegate. */
+//- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error {
+//    NSLog(@"audioPlayerDecodeErrorDidOccur");
+//
+//}
+//
+///* AVAudioPlayer INTERRUPTION NOTIFICATIONS ARE DEPRECATED - Use AVAudioSession instead. */
+//
+///* audioPlayerBeginInterruption: is called when the audio session has been interrupted while the player was playing. The player will have been paused. */
+//- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player NS_DEPRECATED_IOS(2_2, 8_0) {
+//    NSLog(@"audioPlayerBeginInterruption");
+//}
+//
+///* audioPlayerEndInterruption:withOptions: is called when the audio session interruption has ended and this player had been interrupted while playing. */
+///* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
+//- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags NS_DEPRECATED_IOS(6_0, 8_0) {
+//    NSLog(@"audioPlayerEndInterruption");
+//}
+//
+//- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player withFlags:(NSUInteger)flags NS_DEPRECATED_IOS(4_0, 6_0) {
+//    NSLog(@"audioPlayerEndInterruption");
+//
+//}
+//
+///* audioPlayerEndInterruption: is called when the preferred method, audioPlayerEndInterruption:withFlags:, is not implemented. */
+//- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player NS_DEPRECATED_IOS(2_2, 6_0) {
+//    NSLog(@"audioPlayerEndInterruption");
+//}
+//
+
 @end

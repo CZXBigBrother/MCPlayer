@@ -23,7 +23,11 @@
 #define WEAK_SELF __weak typeof(self) weakSelf = self
 #define WEAK_OBJ(o) autoreleasepool{} __weak typeof(o) o##Weak = o;
 
+
+#import <Foundation/Foundation.h>
 #import "MCPlayerView.h"
 #import "MCPlayerProgressHUD.h"
 #import "MCPlayerSliderView.h"
 #import "MCPlayerTopView.h"
+#import "MCPlayerModel.h"
+

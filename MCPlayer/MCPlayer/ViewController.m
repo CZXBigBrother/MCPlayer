@@ -7,36 +7,63 @@
 //
 
 #import "ViewController.h"
-#import "MCPlayerSliderView.h"
-#import "MCPlayerView.h"
+#import "MCPlayer.h"
+#import <Masonry.h>
 
-
-@interface ViewController ()
-
+@interface ViewController ()<MCPlayerDelagate>
+@property(nonatomic, weak)MCPlayerView *myPlayerView;
 @end
 
 @implementation ViewController
 
+-(void)dealloc {
+    NSLog(@"%@",self.class);
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.myPlayerView MCPlayerPause];
+    self.navigationController.navigationBarHidden = NO;
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationController.navigationBarHidden = YES;
     
-//    MCPlayerSliderView * mc = [[MCPlayerSliderView alloc]init];
-//    mc.frame = CGRectMake(0, 10, [UIScreen mainScreen].bounds.size.width, 44);
-//    [self.view addSubview:mc];
+    MCPlayerModel * data = [[MCPlayerModel alloc]init];
+    data.videoURL = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
     
-    MCPlayerView * mp = [[MCPlayerView alloc]init];
-    mp.frame = CGRectMake(0, 80, [UIScreen mainScreen].bounds.size.width, 9.0/16.0 * [UIScreen mainScreen].bounds.size.width);
-    [self.view addSubview:mp];
-    [mp start];
-//    mp.backgroundColor = [UIColor blueColor];
+    MCPlayerView * playView = [[MCPlayerView alloc]init];
+    self.myPlayerView = playView;
+    [self.view addSubview:self.myPlayerView];
+    self.myPlayerView.playModel = data;
+    [self.myPlayerView MCPlayerPlay];
+    self.myPlayerView.delegate = self;
+    
+    //如果直接用代码布局
+    //    mp.frame = CGRectMake(0, 80, [UIScreen mainScreen].bounds.size.width, 9.0/16.0 * [UIScreen mainScreen].bounds.size.width);
+    //如果用masonry布局
+    [self.myPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(0);
+        make.left.right.equalTo(self.view);
+        // 注意此处，宽高比16：9优先级比1000低就行，在因为iPhone 4S宽高比不是16：9
+        make.height.equalTo(self.myPlayerView.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
+    }];
+}
+- (void)mc_playerBackButtonOnClick {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)delete:(id)sender {
+    [self.myPlayerView MCPlayerReset];
+}
+- (IBAction)reset:(id)sender {
+    MCPlayerModel * data = [[MCPlayerModel alloc]init];
+    data.videoURL = @"http://baobab.wdjcdn.com/14571455324031.mp4";
+    self.myPlayerView.playModel = data;
+    [self.myPlayerView MCPlayerReset];
+
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 @end
