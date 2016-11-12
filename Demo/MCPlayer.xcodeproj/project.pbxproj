@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A0804C271DD57772000013E9 /* MCPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C261DD57772000013E9 /* MCPlayerModel.m */; };
-		A08DBC321DD02F6B00C11098 /* MCPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A08DBC311DD02F6B00C11098 /* MCPlayerView.m */; };
-		A08DBC361DD0740B00C11098 /* MCPlayerTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A08DBC351DD0740B00C11098 /* MCPlayerTopView.m */; };
+		A0804C341DD6B8C5000013E9 /* MCPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0804C281DD6B8C5000013E9 /* MCPlayer.bundle */; };
+		A0804C351DD6B8C5000013E9 /* MCPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C2B1DD6B8C5000013E9 /* MCPlayerModel.m */; };
+		A0804C361DD6B8C5000013E9 /* MCPlayerProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C2D1DD6B8C5000013E9 /* MCPlayerProgressHUD.m */; };
+		A0804C371DD6B8C5000013E9 /* MCPlayerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C2F1DD6B8C5000013E9 /* MCPlayerSliderView.m */; };
+		A0804C381DD6B8C5000013E9 /* MCPlayerTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C311DD6B8C5000013E9 /* MCPlayerTopView.m */; };
+		A0804C391DD6B8C5000013E9 /* MCPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C331DD6B8C5000013E9 /* MCPlayerView.m */; };
 		A092C2461DCC37D90014E085 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C2451DCC37D90014E085 /* main.m */; };
 		A092C2491DCC37D90014E085 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C2481DCC37D90014E085 /* AppDelegate.m */; };
 		A092C24C1DCC37D90014E085 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C24B1DCC37D90014E085 /* ViewController.m */; };
@@ -18,9 +21,6 @@
 		A092C2541DCC37D90014E085 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A092C2521DCC37D90014E085 /* LaunchScreen.storyboard */; };
 		A092C25F1DCC37D90014E085 /* MCPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C25E1DCC37D90014E085 /* MCPlayerTests.m */; };
 		A092C26A1DCC37D90014E085 /* MCPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C2691DCC37D90014E085 /* MCPlayerUITests.m */; };
-		A092C2791DCC381C0014E085 /* MCPlayerSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A092C2781DCC381C0014E085 /* MCPlayerSliderView.m */; };
-		A0B26F371DD1A4ED0031E945 /* MCPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0B26F361DD1A4ED0031E945 /* MCPlayer.bundle */; };
-		A0B26F3A1DD1AAF10031E945 /* MCPlayerProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B26F391DD1AAF10031E945 /* MCPlayerProgressHUD.m */; };
 		A5B2FC14935CD600F2CD78D2 /* libPods-MCPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4433511F4991B8D33A85302D /* libPods-MCPlayer.a */; };
 /* End PBXBuildFile section */
 
@@ -44,13 +44,18 @@
 /* Begin PBXFileReference section */
 		4433511F4991B8D33A85302D /* libPods-MCPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85F76FDCFF0B10C9BF52E880 /* Pods-MCPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MCPlayer/Pods-MCPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		A0804C251DD57772000013E9 /* MCPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPlayerModel.h; sourceTree = "<group>"; };
-		A0804C261DD57772000013E9 /* MCPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPlayerModel.m; sourceTree = "<group>"; };
-		A08DBC301DD02F6B00C11098 /* MCPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPlayerView.h; sourceTree = "<group>"; };
-		A08DBC311DD02F6B00C11098 /* MCPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPlayerView.m; sourceTree = "<group>"; };
-		A08DBC331DD052CA00C11098 /* MCPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPlayer.h; sourceTree = "<group>"; };
-		A08DBC341DD0740B00C11098 /* MCPlayerTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPlayerTopView.h; sourceTree = "<group>"; };
-		A08DBC351DD0740B00C11098 /* MCPlayerTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPlayerTopView.m; sourceTree = "<group>"; };
+		A0804C281DD6B8C5000013E9 /* MCPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MCPlayer.bundle; path = ../../MCPlayer/MCPlayer.bundle; sourceTree = "<group>"; };
+		A0804C291DD6B8C5000013E9 /* MCPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayer.h; path = ../../MCPlayer/MCPlayer.h; sourceTree = "<group>"; };
+		A0804C2A1DD6B8C5000013E9 /* MCPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerModel.h; path = ../../MCPlayer/MCPlayerModel.h; sourceTree = "<group>"; };
+		A0804C2B1DD6B8C5000013E9 /* MCPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPlayerModel.m; path = ../../MCPlayer/MCPlayerModel.m; sourceTree = "<group>"; };
+		A0804C2C1DD6B8C5000013E9 /* MCPlayerProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerProgressHUD.h; path = ../../MCPlayer/MCPlayerProgressHUD.h; sourceTree = "<group>"; };
+		A0804C2D1DD6B8C5000013E9 /* MCPlayerProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPlayerProgressHUD.m; path = ../../MCPlayer/MCPlayerProgressHUD.m; sourceTree = "<group>"; };
+		A0804C2E1DD6B8C5000013E9 /* MCPlayerSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerSliderView.h; path = ../../MCPlayer/MCPlayerSliderView.h; sourceTree = "<group>"; };
+		A0804C2F1DD6B8C5000013E9 /* MCPlayerSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPlayerSliderView.m; path = ../../MCPlayer/MCPlayerSliderView.m; sourceTree = "<group>"; };
+		A0804C301DD6B8C5000013E9 /* MCPlayerTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerTopView.h; path = ../../MCPlayer/MCPlayerTopView.h; sourceTree = "<group>"; };
+		A0804C311DD6B8C5000013E9 /* MCPlayerTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPlayerTopView.m; path = ../../MCPlayer/MCPlayerTopView.m; sourceTree = "<group>"; };
+		A0804C321DD6B8C5000013E9 /* MCPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerView.h; path = ../../MCPlayer/MCPlayerView.h; sourceTree = "<group>"; };
+		A0804C331DD6B8C5000013E9 /* MCPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPlayerView.m; path = ../../MCPlayer/MCPlayerView.m; sourceTree = "<group>"; };
 		A092C2411DCC37D90014E085 /* MCPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A092C2451DCC37D90014E085 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A092C2471DCC37D90014E085 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -67,11 +72,6 @@
 		A092C2651DCC37D90014E085 /* MCPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MCPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A092C2691DCC37D90014E085 /* MCPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCPlayerUITests.m; sourceTree = "<group>"; };
 		A092C26B1DCC37D90014E085 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A092C2771DCC381C0014E085 /* MCPlayerSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPlayerSliderView.h; sourceTree = "<group>"; };
-		A092C2781DCC381C0014E085 /* MCPlayerSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPlayerSliderView.m; sourceTree = "<group>"; };
-		A0B26F361DD1A4ED0031E945 /* MCPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MCPlayer.bundle; sourceTree = "<group>"; };
-		A0B26F381DD1AAF10031E945 /* MCPlayerProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPlayerProgressHUD.h; sourceTree = "<group>"; };
-		A0B26F391DD1AAF10031E945 /* MCPlayerProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPlayerProgressHUD.m; sourceTree = "<group>"; };
 		D28BC71F0BE2E57EA71DF2C9 /* Pods-MCPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-MCPlayer/Pods-MCPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,18 +177,18 @@
 		A092C27A1DCC38240014E085 /* MCPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A0B26F361DD1A4ED0031E945 /* MCPlayer.bundle */,
-				A08DBC331DD052CA00C11098 /* MCPlayer.h */,
-				A08DBC301DD02F6B00C11098 /* MCPlayerView.h */,
-				A08DBC311DD02F6B00C11098 /* MCPlayerView.m */,
-				A092C2771DCC381C0014E085 /* MCPlayerSliderView.h */,
-				A092C2781DCC381C0014E085 /* MCPlayerSliderView.m */,
-				A08DBC341DD0740B00C11098 /* MCPlayerTopView.h */,
-				A08DBC351DD0740B00C11098 /* MCPlayerTopView.m */,
-				A0B26F381DD1AAF10031E945 /* MCPlayerProgressHUD.h */,
-				A0B26F391DD1AAF10031E945 /* MCPlayerProgressHUD.m */,
-				A0804C251DD57772000013E9 /* MCPlayerModel.h */,
-				A0804C261DD57772000013E9 /* MCPlayerModel.m */,
+				A0804C281DD6B8C5000013E9 /* MCPlayer.bundle */,
+				A0804C291DD6B8C5000013E9 /* MCPlayer.h */,
+				A0804C2A1DD6B8C5000013E9 /* MCPlayerModel.h */,
+				A0804C2B1DD6B8C5000013E9 /* MCPlayerModel.m */,
+				A0804C2C1DD6B8C5000013E9 /* MCPlayerProgressHUD.h */,
+				A0804C2D1DD6B8C5000013E9 /* MCPlayerProgressHUD.m */,
+				A0804C2E1DD6B8C5000013E9 /* MCPlayerSliderView.h */,
+				A0804C2F1DD6B8C5000013E9 /* MCPlayerSliderView.m */,
+				A0804C301DD6B8C5000013E9 /* MCPlayerTopView.h */,
+				A0804C311DD6B8C5000013E9 /* MCPlayerTopView.m */,
+				A0804C321DD6B8C5000013E9 /* MCPlayerView.h */,
+				A0804C331DD6B8C5000013E9 /* MCPlayerView.m */,
 			);
 			name = MCPlayer;
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0B26F371DD1A4ED0031E945 /* MCPlayer.bundle in Resources */,
+				A0804C341DD6B8C5000013E9 /* MCPlayer.bundle in Resources */,
 				A092C2541DCC37D90014E085 /* LaunchScreen.storyboard in Resources */,
 				A092C2511DCC37D90014E085 /* Assets.xcassets in Resources */,
 				A092C24F1DCC37D90014E085 /* Main.storyboard in Resources */,
@@ -390,14 +390,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0804C271DD57772000013E9 /* MCPlayerModel.m in Sources */,
+				A0804C351DD6B8C5000013E9 /* MCPlayerModel.m in Sources */,
+				A0804C391DD6B8C5000013E9 /* MCPlayerView.m in Sources */,
 				A092C24C1DCC37D90014E085 /* ViewController.m in Sources */,
-				A08DBC361DD0740B00C11098 /* MCPlayerTopView.m in Sources */,
-				A0B26F3A1DD1AAF10031E945 /* MCPlayerProgressHUD.m in Sources */,
+				A0804C371DD6B8C5000013E9 /* MCPlayerSliderView.m in Sources */,
+				A0804C361DD6B8C5000013E9 /* MCPlayerProgressHUD.m in Sources */,
 				A092C2491DCC37D90014E085 /* AppDelegate.m in Sources */,
-				A092C2791DCC381C0014E085 /* MCPlayerSliderView.m in Sources */,
 				A092C2461DCC37D90014E085 /* main.m in Sources */,
-				A08DBC321DD02F6B00C11098 /* MCPlayerView.m in Sources */,
+				A0804C381DD6B8C5000013E9 /* MCPlayerTopView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
