@@ -27,5 +27,5 @@
 - (void)MCPlayerPause;
 - (void)MCPlayerReset;
 
-
++ (void)setupViewToTopLocation:(UIView *)selfView withPlayerView:(UIView *)targetView;
 @end

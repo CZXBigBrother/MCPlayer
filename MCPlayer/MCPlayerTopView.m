@@ -66,5 +66,8 @@
         make.center.equalTo(weakSelf);
     }];
 }
+- (void)setData:(MCPlayerModel *)data {
+    self.lblTitle.text = data.title;
+}
 
 @end

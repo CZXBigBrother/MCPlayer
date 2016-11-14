@@ -62,6 +62,16 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 @end
 
 @implementation MCPlayerView
+
++ (void)setupViewToTopLocation:(UIView *)selfView withPlayerView:(UIView *)targetView {
+    [targetView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(selfView).offset(0);
+        make.left.right.equalTo(selfView);
+        // 注意此处，宽高比16：9优先级比1000低就行，在因为iPhone 4S宽高比不是16：9
+        make.height.equalTo(selfView.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
+    }];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         [self createView];
@@ -177,6 +187,7 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 }
 - (void)setPlayModel:(MCPlayerModel *)playModel {
     _playModel = playModel;
+    [self.myPlayerTopView setData:playModel];
     
 }
 - (CGFloat)getTotolTime {
