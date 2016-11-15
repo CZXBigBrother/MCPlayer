@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0625A341DD99FE70045AFB3 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0625A331DD99FE70045AFB3 /* TableViewController.m */; };
+		A0625A381DD9AF4E0045AFB3 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0625A371DD9AF4E0045AFB3 /* VideoTableViewCell.m */; };
 		A0804C341DD6B8C5000013E9 /* MCPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0804C281DD6B8C5000013E9 /* MCPlayer.bundle */; };
 		A0804C351DD6B8C5000013E9 /* MCPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C2B1DD6B8C5000013E9 /* MCPlayerModel.m */; };
 		A0804C361DD6B8C5000013E9 /* MCPlayerProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0804C2D1DD6B8C5000013E9 /* MCPlayerProgressHUD.m */; };
@@ -44,6 +46,10 @@
 /* Begin PBXFileReference section */
 		4433511F4991B8D33A85302D /* libPods-MCPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85F76FDCFF0B10C9BF52E880 /* Pods-MCPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MCPlayer/Pods-MCPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		A0625A321DD99FE70045AFB3 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		A0625A331DD99FE70045AFB3 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		A0625A361DD9AF4E0045AFB3 /* VideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewCell.h; sourceTree = "<group>"; };
+		A0625A371DD9AF4E0045AFB3 /* VideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewCell.m; sourceTree = "<group>"; };
 		A0804C281DD6B8C5000013E9 /* MCPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MCPlayer.bundle; path = ../../MCPlayer/MCPlayer.bundle; sourceTree = "<group>"; };
 		A0804C291DD6B8C5000013E9 /* MCPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayer.h; path = ../../MCPlayer/MCPlayer.h; sourceTree = "<group>"; };
 		A0804C2A1DD6B8C5000013E9 /* MCPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPlayerModel.h; path = ../../MCPlayer/MCPlayerModel.h; sourceTree = "<group>"; };
@@ -109,6 +115,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A0625A351DD9AF1C0045AFB3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A0625A361DD9AF4E0045AFB3 /* VideoTableViewCell.h */,
+				A0625A371DD9AF4E0045AFB3 /* VideoTableViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		A092C2381DCC37D90014E085 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +154,9 @@
 				A092C2481DCC37D90014E085 /* AppDelegate.m */,
 				A092C24A1DCC37D90014E085 /* ViewController.h */,
 				A092C24B1DCC37D90014E085 /* ViewController.m */,
+				A0625A321DD99FE70045AFB3 /* TableViewController.h */,
+				A0625A331DD99FE70045AFB3 /* TableViewController.m */,
+				A0625A351DD9AF1C0045AFB3 /* View */,
 				A092C24D1DCC37D90014E085 /* Main.storyboard */,
 				A092C2501DCC37D90014E085 /* Assets.xcassets */,
 				A092C2521DCC37D90014E085 /* LaunchScreen.storyboard */,
@@ -394,6 +412,8 @@
 				A0804C391DD6B8C5000013E9 /* MCPlayerView.m in Sources */,
 				A092C24C1DCC37D90014E085 /* ViewController.m in Sources */,
 				A0804C371DD6B8C5000013E9 /* MCPlayerSliderView.m in Sources */,
+				A0625A341DD99FE70045AFB3 /* TableViewController.m in Sources */,
+				A0625A381DD9AF4E0045AFB3 /* VideoTableViewCell.m in Sources */,
 				A0804C361DD6B8C5000013E9 /* MCPlayerProgressHUD.m in Sources */,
 				A092C2491DCC37D90014E085 /* AppDelegate.m in Sources */,
 				A092C2461DCC37D90014E085 /* main.m in Sources */,

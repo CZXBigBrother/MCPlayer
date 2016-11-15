@@ -19,11 +19,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqw-Ad-slI">
-                                <frame key="frameInset" minX="151" minY="235" width="72" height="73"/>
+                                <frame key="frameInset" minX="106" minY="188" width="163" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.23137254900000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="进去"/>
                                 <connections>
                                     <segue destination="tAA-f9-sV3" kind="push" id="gTi-qF-oeV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPe-t0-0qd">
+                                <frame key="frameInset" minX="106" minY="297" width="163" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.23137254900000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="TableView"/>
+                                <connections>
+                                    <segue destination="FaQ-f4-G3R" kind="push" id="ljq-z9-ytF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -34,6 +44,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Pis-gN-CCp">
+            <objects>
+                <viewController id="FaQ-f4-G3R" customClass="TableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rVH-7X-bOk"/>
+                        <viewControllerLayoutGuide type="bottom" id="5fC-Mn-7gH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zUN-dO-xe9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dKV-tB-Oi4">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FaQ-f4-G3R" id="xeQ-qB-Mp1"/>
+                                    <outlet property="delegate" destination="FaQ-f4-G3R" id="6rk-hQ-562"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5fC-Mn-7gH" firstAttribute="top" secondItem="dKV-tB-Oi4" secondAttribute="bottom" id="17t-iy-1zp"/>
+                            <constraint firstItem="dKV-tB-Oi4" firstAttribute="leading" secondItem="zUN-dO-xe9" secondAttribute="leading" id="61G-WM-CJE"/>
+                            <constraint firstAttribute="trailing" secondItem="dKV-tB-Oi4" secondAttribute="trailing" id="SAh-va-PGf"/>
+                            <constraint firstItem="dKV-tB-Oi4" firstAttribute="top" secondItem="rVH-7X-bOk" secondAttribute="bottom" id="pVy-0v-pEp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PiW-U3-QYy"/>
+                    <connections>
+                        <outlet property="myTableView" destination="dKV-tB-Oi4" id="Gw2-cL-Xsp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="szV-be-47K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1932" y="448.42578710644682"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="t6i-Go-VOO">
@@ -72,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qhm-s3-4G5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="138.98050974512745"/>
+            <point key="canvasLocation" x="1922" y="-207"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F9o-Sn-KaS">
