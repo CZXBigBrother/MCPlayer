@@ -70,7 +70,7 @@
                             <constraint firstItem="5fC-Mn-7gH" firstAttribute="top" secondItem="dKV-tB-Oi4" secondAttribute="bottom" id="17t-iy-1zp"/>
                             <constraint firstItem="dKV-tB-Oi4" firstAttribute="leading" secondItem="zUN-dO-xe9" secondAttribute="leading" id="61G-WM-CJE"/>
                             <constraint firstAttribute="trailing" secondItem="dKV-tB-Oi4" secondAttribute="trailing" id="SAh-va-PGf"/>
-                            <constraint firstItem="dKV-tB-Oi4" firstAttribute="top" secondItem="rVH-7X-bOk" secondAttribute="bottom" id="pVy-0v-pEp"/>
+                            <constraint firstItem="dKV-tB-Oi4" firstAttribute="top" secondItem="rVH-7X-bOk" secondAttribute="bottom" constant="-64" id="pVy-0v-pEp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PiW-U3-QYy"/>

@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
 @end
 
 @implementation MCPlayerView
+static  MCPlayerView *_instance;
 
 + (void)setupViewToTopLocation:(UIView *)selfView withPlayerView:(UIView *)targetView {
     [targetView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,6 +71,20 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
         // 注意此处，宽高比16：9优先级比1000低就行，在因为iPhone 4S宽高比不是16：9
         make.height.equalTo(selfView.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
     }];
+}
+//+ (id)allocWithZone:(struct _NSZone *)zone {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _instance = [super allocWithZone:zone];
+//    });
+//    return _instance;
+//}
++ (instancetype)sharedPlayerView {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[MCPlayerView alloc] init];
+    });
+    return _instance;
 }
 
 - (instancetype)init {
@@ -441,10 +456,22 @@ typedef NS_ENUM(NSInteger, MCPlayerState) {
     if (self.isFullScreen) {
         self.myPlayerSliderView.btnFull.selected = NO;
         [self interfaceOrientation:UIInterfaceOrientationPortrait];
+        if (self.cell) {
+            [self.cell addSubview:self];
+            [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+            }];
+        }
     }
     else if (self.allowFullScreen){
         self.myPlayerSliderView.btnFull.selected = YES;
         [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+        if(self.cell) {
+            [[[[UIApplication sharedApplication].keyWindow subviews] lastObject] addSubview:self];
+            [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+            }];
+        }
     }
 }
 - (void)MCPlayerSeekToTime:(CGFloat)value {

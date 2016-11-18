@@ -18,14 +18,17 @@
 @class MCPlayerModel;
 
 @interface MCPlayerView : UIView
+
++ (instancetype)sharedPlayerView;
 // 是否允许横屏播放
 @property(nonatomic, assign) BOOL allowFullScreen;
 @property(nonatomic, strong) MCPlayerModel  *playModel;
 @property(nonatomic, weak)id<MCPlayerDelagate> delegate;
+@property(nonatomic, strong)UITableViewCell *cell;
 
 - (void)MCPlayerPlay;
 - (void)MCPlayerPause;
 - (void)MCPlayerReset;
-
 + (void)setupViewToTopLocation:(UIView *)selfView withPlayerView:(UIView *)targetView;
+
 @end
