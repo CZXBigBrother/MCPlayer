@@ -11,6 +11,10 @@
 @protocol MCPlayerDelagate <NSObject>
 
 @optional
+
+/**
+ * 返回按键代理
+ */
 - (void)mc_playerBackButtonOnClick;
 
 @end

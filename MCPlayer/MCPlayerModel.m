@@ -3,7 +3,7 @@
 //  MCPlayer
 //
 //  Created by 陈正星 on 16/11/11.
-//  Copyright © 2016年 MarcoChen. All rights reserved.
+//  Copyright (c) 2016 czxghostyueqiu (http://blog.csdn.net/czxghostyueqiu，https://github.com/CZXBigBrother)
 //
 
 #import "MCPlayerModel.h"

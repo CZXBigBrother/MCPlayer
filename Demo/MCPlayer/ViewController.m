@@ -36,9 +36,10 @@
     MCPlayerView * playView = [[MCPlayerView alloc]init];
     self.myPlayerView = playView;
     [self.view addSubview:self.myPlayerView];
+    self.myPlayerView.delegate = self;
+
     self.myPlayerView.playModel = data;
     [self.myPlayerView MCPlayerPlay];
-    self.myPlayerView.delegate = self;
     
     //如果直接用代码布局
 //    mp.frame = CGRectMake(0, 80, [UIScreen mainScreen].bounds.size.width, 9.0/16.0 * [UIScreen mainScreen].bounds.size.width);

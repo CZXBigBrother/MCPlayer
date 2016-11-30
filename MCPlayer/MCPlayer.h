@@ -5,6 +5,8 @@
 //  Created by 陈正星 on 16/11/7.
 //  Copyright © 2016年 MarcoChen. All rights reserved.
 //
+//  Copyright (c) 2016 czxghostyueqiu (http://blog.csdn.net/czxghostyueqiu，https://github.com/CZXBigBrother)
+//
 
 // 屏幕的宽
 #define ScreenWidth   [[UIScreen mainScreen] bounds].size.width
