@@ -7,7 +7,7 @@ Finally, the use of the tableview with the function.
 
 The rest of the functions have been completed almost, later added on the documentation.~~
 
-
+![image](https://github.com/CZXBigBrother/MCPlayer/blob/master/Demo/resource/MV.gif)
 #主要作者比较懒，有问题可以直接发邮件chenxingghost@gmail.com,还有待完善的地方慢慢修改
 
 
