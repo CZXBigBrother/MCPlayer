@@ -11,12 +11,12 @@ The rest of the functions have been completed almost, later added on the documen
 #主要作者比较懒，有问题可以直接发邮件chenxingghost@gmail.com,还有待完善的地方慢慢修改
 
 
-#模型类
+# 模型类
  	MCPlayerModel * data = [[MCPlayerModel alloc]init];
     data.videoURL = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
     data.title = @"电影一";
 
-#基本公开的三个方法
+ #基本公开的三个方法
 /**
  *  播放
  */
@@ -32,7 +32,7 @@ The rest of the functions have been completed almost, later added on the documen
  */
 - (void)MCPlayerReset;
 
-#tableview上的使用方法
+# tableview上的使用方法
     MCPlayerModel * data = [[MCPlayerModel alloc]init];
     data.videoURL = @"http://baobab.wdjcdn.com/1456665467509qingshu.mp4";
     data.title = @"电影一";
